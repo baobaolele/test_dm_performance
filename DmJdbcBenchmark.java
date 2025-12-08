@@ -27,37 +27,24 @@ public class DmJdbcBenchmark {
     // 对应数据库账号密码，默认SYSDBA当前密码（如已修改请同步修改），强烈建议勿将生产密码明文写死在代码
     private static final String PASSWORD = "SYSDBA"; // 数据库密码
     /**
-     * 达梦数据库 JDBC 性能测试工具
-     *
-     * 本类用于测试达梦数据库（DM）JDBC连接的写入（批量插入）、读取与索引查询性能。
-     *
-     * 主要流程：
-     * 1. 加载数据库 JDBC 驱动
-     * 2. 建立数据库连接
-     * 3. 创建并准备测试用表，包含多个字段以及主键、索引
-     * 4. 进行批量数据插入，测试写入效率
-     * 5. 执行全表读取，测试读取速度
-     * 6. 针对索引字段进行条件查询，测试索引性能
-     * 7. 打印详细的性能测试报告
-     * 8. 清理所有测试环境（删除表等）
-     *
-     * 注意事项：
-     * - 需根据实际环境修改 JDBC 连接相关配置（如HOST、PORT、DB名、用户名、密码等）
-     * - 需引入达梦数据库的JDBC驱动jar包（dm8jdbc/dm7jdbc等）
-     * - 实际生产环境请勿将敏感信息（如明文密码）写入源码
-     * - 建议在独立的测试数据库中运行本工具，防止影响正式业务数据
-     *
-     * 主要成员变量说明：
-     * DRIVER_CLASS：达梦数据库JDBC驱动全限定类名
-     * URL:          数据库连接地址
-     * USER:         用户名
-     * PASSWORD:     密码
-     * TOTAL_RECORDS: 一次性批量插入/测试的总记录条数
-     * BATCH_SIZE:    单次批量提交的插入数量
-     *
-     * 使用方法：
-     * 配置好上述参数后，直接运行 main 方法即可自动完成全部性能测试流程。
-     */
+     /**
+      * 将本地 git 仓库推送到新创建的远程仓库（假设远程还未建立）流程如下：
+      *
+      * 1. 在 git 代码托管平台（如 GitHub、Gitee、GitLab 等）新建一个空的远程仓库（只需在网页新建，不要初始化任何 readme/license）。
+      * 2. 本地已有 git 仓库（若未初始化请先 git init）。
+      * 3. 关联远程仓库地址：
+      *      git remote add origin <远程仓库地址>
+      *      # 例如: git remote add origin https://github.com/yourname/yourrepo.git
+      * 4. 推送本地 master/main 分支到远程：
+      *      git push -u origin master
+      *      # 或新版本 git 默认分支为 main，则用 git push -u origin main
+      * 5. 远程仓库代码即同步完成，以后可直接用 git push
+      *
+      * 注意事项：
+      * - 第一次推送用 -u 设定默认上游分支，后续可直接 git push
+      * - 远程仓库需为空，否则推送若有冲突需要先拉取合并
+      * - 仓库地址建议用 SSH（如 git@github.com:...），或用 HTTPS 并配置访问令牌
+      */
 
     // 测试配置 - 百万级数据
     private static final int TOTAL_RECORDS = 1000000;  // 100万条记录
