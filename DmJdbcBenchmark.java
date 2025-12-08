@@ -9,11 +9,55 @@ import java.util.UUID;
 
 public class DmJdbcBenchmark {
 
-    // 数据库连接配置，请根据实际情况修改
-    private static final String DRIVER_CLASS = "dm.jdbc.driver.DmDriver";
-    private static final String URL = "jdbc:dm://localhost:5236/DAMENG";
-    private static final String USER = "SYSDBA";
-    private static final String PASSWORD = "SYSDBA";
+    // 数据库连接相关配置，请根据实际环境修改以下参数
+    // 驱动类名：达梦数据库官方 JDBC 驱动，需要在项目中引入该 jar 包（如 dm8 jdbc/dm7 jdbc 等）
+    private static final String DRIVER_CLASS = "dm.jdbc.driver.DmDriver"; // 达梦 JDBC 驱动类完全限定名
+
+    // 数据库连接URL格式：
+    // jdbc:dm://<主机名>:<端口>/<数据库名>
+    // 示例：jdbc:dm://localhost:5236/DAMENG
+    // - localhost   本地数据库服务器地址，如为远程请改为实际IP或主机名
+    // - 5236        达梦数据库默认监听端口，如实际有所修改请同步更改
+    // - DAMENG      数据库名称，请使用实际要连接的库名
+    private static final String URL = "jdbc:dm://localhost:5236/DAMENG"; // 数据库连接字符串
+
+    // 数据库用户名，如无特殊设置默认可使用SYSDBA（拥有最高权限），实际生产环境请创建专用账号
+    private static final String USER = "SYSDBA"; // 数据库用户名
+
+    // 对应数据库账号密码，默认SYSDBA当前密码（如已修改请同步修改），强烈建议勿将生产密码明文写死在代码
+    private static final String PASSWORD = "SYSDBA"; // 数据库密码
+    /**
+     * 达梦数据库 JDBC 性能测试工具
+     *
+     * 本类用于测试达梦数据库（DM）JDBC连接的写入（批量插入）、读取与索引查询性能。
+     *
+     * 主要流程：
+     * 1. 加载数据库 JDBC 驱动
+     * 2. 建立数据库连接
+     * 3. 创建并准备测试用表，包含多个字段以及主键、索引
+     * 4. 进行批量数据插入，测试写入效率
+     * 5. 执行全表读取，测试读取速度
+     * 6. 针对索引字段进行条件查询，测试索引性能
+     * 7. 打印详细的性能测试报告
+     * 8. 清理所有测试环境（删除表等）
+     *
+     * 注意事项：
+     * - 需根据实际环境修改 JDBC 连接相关配置（如HOST、PORT、DB名、用户名、密码等）
+     * - 需引入达梦数据库的JDBC驱动jar包（dm8jdbc/dm7jdbc等）
+     * - 实际生产环境请勿将敏感信息（如明文密码）写入源码
+     * - 建议在独立的测试数据库中运行本工具，防止影响正式业务数据
+     *
+     * 主要成员变量说明：
+     * DRIVER_CLASS：达梦数据库JDBC驱动全限定类名
+     * URL:          数据库连接地址
+     * USER:         用户名
+     * PASSWORD:     密码
+     * TOTAL_RECORDS: 一次性批量插入/测试的总记录条数
+     * BATCH_SIZE:    单次批量提交的插入数量
+     *
+     * 使用方法：
+     * 配置好上述参数后，直接运行 main 方法即可自动完成全部性能测试流程。
+     */
 
     // 测试配置 - 百万级数据
     private static final int TOTAL_RECORDS = 1000000;  // 100万条记录
